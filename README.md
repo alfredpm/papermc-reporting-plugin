@@ -4,6 +4,14 @@
 
 ## Description
 Simple reporting PaperMC/Bukkit plugin for Minecraft 1.20.4.
+Configured for supporting non-vanilla client.
+
+## Usage
+1. Build plugin: ```gradle buildPlugin```  
+2. Copy /build/libs/reporting.jar into the plugins folder of your papermc server  
+3. Run server  
+
+*NB: There is no configuration available. Change the source code directly.*
 
 ## Current features
  - Storage of player role and reports:
