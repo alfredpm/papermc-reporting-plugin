@@ -1,0 +1,32 @@
+name: Reporting
+version: 1.0.0
+main: yakyoku.app.PluginController
+description: An example plugin
+api-version: '1.20'
+commands:
+  report:
+    description: Report a player
+    usage: /report <name> <motive> <optComment>
+    permission: yakyoku.reporting.report
+  solve:
+    description: Close a report
+    usage: /solve <reportId> <status> <optComment>
+    permission: yakyoku.reporting.solve
+  read:
+    description: Get details of a report
+    usage: /read <reportId>
+    permission: yakyoku.reporting.read
+  readall:
+    description: Get a list of reports
+    usage: /readall <optPage>
+    permission: yakyoku.reporting.read
+permissions:
+  yakyoku.reporting.report:
+    description: Allows posting reports
+    default: false
+  yakyoku.reporting.solve:
+    description: Allows closure of reports
+    default: false
+  yakyoku.reporting.read:
+    description: Allows read access to the reports
+    default: false
