@@ -1,4 +1,4 @@
-package yakyoku.role.adapters;
+package fr.yakyoku.reporting.role.adapters.memory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,9 +8,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import yakyoku.role.IRoleStorage;
-import yakyoku.role.models.PlayerWrapper;
-import yakyoku.role.models.Role;
+import fr.yakyoku.reporting.role.IRoleStorage;
+import fr.yakyoku.reporting.role.models.PlayerWrapper;
+import fr.yakyoku.reporting.role.models.Role;
 
 public class InMemoryRoleStorage implements IRoleStorage {
     Map<UUID, PlayerWrapper> storage = new HashMap<>();

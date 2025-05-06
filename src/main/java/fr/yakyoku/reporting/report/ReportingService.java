@@ -1,4 +1,4 @@
-package yakyoku.reporting;
+package fr.yakyoku.reporting.report;
 
 import java.time.Instant;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import yakyoku.reporting.models.IncomingReport;
-import yakyoku.reporting.models.ReportStatus;
-import yakyoku.reporting.models.StoredReport;
-import yakyoku.reporting.models.StoredReport.StoredReportPage;
+import fr.yakyoku.reporting.report.models.IncomingReport;
+import fr.yakyoku.reporting.report.models.ReportStatus;
+import fr.yakyoku.reporting.report.models.StoredReport;
+import fr.yakyoku.reporting.report.models.StoredReport.StoredReportPage;
 
 public class ReportingService {
 
@@ -52,6 +52,7 @@ public class ReportingService {
         }
         catch (Exception e) {
             Logger.getLogger(getName()).warning("Something happened: "+e.getMessage());
+            e.printStackTrace();
             return new StoredReportPage(List.of(), 0, 0);
         }
     }
@@ -64,6 +65,7 @@ public class ReportingService {
         }
         catch (Exception e) {
             Logger.getLogger(getName()).severe(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -82,6 +84,7 @@ public class ReportingService {
             }
             catch (Exception e) {
                 Logger.getLogger(getName()).severe(e.getMessage());
+                e.printStackTrace();
                 return false;
             }
         } 

@@ -1,11 +1,9 @@
-package yakyoku.app.input.adapters;
+package fr.yakyoku.reporting.main.input.adapters;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -20,17 +18,17 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import yakyoku.app.input.IInputHandler;
-import yakyoku.app.PluginController;
-import yakyoku.reporting.models.IncomingReport;
-import yakyoku.reporting.models.ReportMotive;
-import yakyoku.reporting.models.ReportStatus;
-import yakyoku.reporting.models.StoredReport;
-import yakyoku.reporting.models.StoredReport.StoredReportPage;
+import fr.yakyoku.reporting.main.ReportingPlugin;
+import fr.yakyoku.reporting.main.input.IInputHandler;
+import fr.yakyoku.reporting.report.models.IncomingReport;
+import fr.yakyoku.reporting.report.models.ReportMotive;
+import fr.yakyoku.reporting.report.models.ReportStatus;
+import fr.yakyoku.reporting.report.models.StoredReport;
+import fr.yakyoku.reporting.report.models.StoredReport.StoredReportPage;
 
 public class CommandInputHandler implements IInputHandler, CommandExecutor {
 
-    private PluginController controller = null;
+    private ReportingPlugin controller = null;
     private DateFormat longDf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     private DateFormat shortDf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -39,7 +37,7 @@ public class CommandInputHandler implements IInputHandler, CommandExecutor {
     }
 
     @Override
-    public void register(PluginController controller) {
+    public void register(ReportingPlugin controller) {
         this.controller = controller;
         controller.getCommand("report").setExecutor(this);
         controller.getCommand("solve").setExecutor(this);
@@ -198,7 +196,7 @@ public class CommandInputHandler implements IInputHandler, CommandExecutor {
             StoredReport report = optReport.get();
             String sourceName = controller.getRoleService().getNameById(report.source);
             String targetName = controller.getRoleService().getNameById(report.target);
-            String solverName = controller.getRoleService().getNameById(report.solver);
+            String solverName = report.solver != null ? controller.getRoleService().getNameById(report.solver) : null;
             // Build response
             response = Component
             .text(String.format(" === Report: %s / %s ===", report.id.toString().substring(0,6), report.status.toString()))

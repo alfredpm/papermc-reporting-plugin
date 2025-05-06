@@ -1,4 +1,4 @@
-package yakyoku.role.models;
+package fr.yakyoku.reporting.role.models;
 
 import org.bukkit.entity.Player;
 

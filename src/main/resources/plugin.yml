@@ -1,7 +1,7 @@
 name: Reporting
 version: 1.0.0
-main: yakyoku.app.PluginController
-description: An example plugin
+main: fr.yakyoku.reporting.main.ReportingPlugin
+description: A simple reporting plugin allowing users to save complaints about players and have allowed users consult and file those complaints.
 api-version: '1.20'
 commands:
   report:
@@ -23,10 +23,12 @@ commands:
 permissions:
   yakyoku.reporting.report:
     description: Allows posting reports
-    default: false
+    default: true
   yakyoku.reporting.solve:
     description: Allows closure of reports
     default: false
   yakyoku.reporting.read:
     description: Allows read access to the reports
     default: false
+
+folia-supported: true

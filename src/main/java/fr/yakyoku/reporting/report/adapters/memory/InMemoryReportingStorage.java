@@ -1,4 +1,4 @@
-package yakyoku.reporting.adapters;
+package fr.yakyoku.reporting.report.adapters.memory;
 
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import yakyoku.reporting.IReportingStorage;
-import yakyoku.reporting.models.StoredReport;
+import fr.yakyoku.reporting.report.IReportingStorage;
+import fr.yakyoku.reporting.report.models.StoredReport;
 
 public class InMemoryReportingStorage implements IReportingStorage {
     Map<UUID, StoredReport> storage = new HashMap<>();

@@ -1,4 +1,4 @@
-package yakyoku.reporting.models;
+package fr.yakyoku.reporting.report.models;
 
 import java.time.Instant;
 import java.util.List;
@@ -90,6 +90,7 @@ public class StoredReport {
         this.source = inReport.source;
         this.target = inReport.target;
         this.solver = inReport.solver;
+        this.motive = inReport.motive;
         this.status = inReport.status;
         this.postedAt = inReport.postedAt;
         this.solvedAt = inReport.solvedAt;

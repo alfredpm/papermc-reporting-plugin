@@ -1,4 +1,4 @@
-package yakyoku.reporting.models;
+package fr.yakyoku.reporting.report.models;
 
 public enum ReportStatus {
     PENDING,

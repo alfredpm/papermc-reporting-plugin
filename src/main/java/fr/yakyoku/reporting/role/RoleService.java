@@ -1,10 +1,12 @@
-package yakyoku.role;
+package fr.yakyoku.reporting.role;
 
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import yakyoku.role.models.Role;
+import org.bukkit.Bukkit;
+
+import fr.yakyoku.reporting.role.models.Role;
 
 public class RoleService {
     
@@ -74,12 +76,13 @@ public class RoleService {
         try {
             return this.storage.getRoleById(playerId);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         try {
             this.storage.initializePlayer(playerId, playerName, defaultRole);
             return defaultRole;
-        } catch (Exception e1) {
+        } catch (Exception e) {
+            e.printStackTrace();
             return Role.NONE;
         }
     }
