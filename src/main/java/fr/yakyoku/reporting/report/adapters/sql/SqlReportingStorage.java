@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang.NotImplementedException;
+
 import fr.yakyoku.reporting.report.IReportingStorage;
 import fr.yakyoku.reporting.report.models.ReportMotive;
 import fr.yakyoku.reporting.report.models.ReportStatus;
@@ -54,7 +56,12 @@ public class SqlReportingStorage implements IReportingStorage{
     }
 
     @Override
-    public StoredReport getReport(UUID id) throws Exception {
+    public StoredReport getReport(UUID id) throws Exception { return this.getReport(id, false); }
+    @Override
+    public StoredReport getReport(UUID id, boolean secondThread) throws Exception {
+        if(secondThread) {
+            throw new NotImplementedException(getName()+" does not support multithread for getReport.");
+        }
         Logger.getLogger(getName()).warning("Getting report by id");
         PreparedStatement getReport = conn.prepareStatement("SELECT * FROM reports WHERE "
             +"id = ?"
@@ -71,7 +78,12 @@ public class SqlReportingStorage implements IReportingStorage{
     }
 
     @Override
-    public List<StoredReport> getAllReports() throws Exception {
+    public List<StoredReport> getAllReports() throws Exception { return this.getAllReports(false); }
+    @Override
+    public List<StoredReport> getAllReports(boolean secondThread) throws Exception {
+        if(secondThread) {
+            throw new NotImplementedException(getName()+" does not support multithread for getAllReport.");
+        }
         Logger.getLogger(getName()).warning("Getting all reports");
         PreparedStatement getReports = conn.prepareStatement("SELECT * FROM reports;");
         ResultSet results = getReports.executeQuery();
@@ -83,7 +95,12 @@ public class SqlReportingStorage implements IReportingStorage{
     }
 
     @Override
-    public void addReport(StoredReport report) throws Exception {
+    public void addReport(StoredReport report) throws Exception { this.addReport(report,false); }
+    @Override
+    public void addReport(StoredReport report, boolean secondThread) throws Exception {
+        if(secondThread) {
+            throw new NotImplementedException(getName()+" does not support multithread for addReport.");
+        }
         Logger.getLogger(getName()).warning("Adding report");
         PreparedStatement addReport = conn.prepareStatement("INSERT INTO reports VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         addReport.setString(1, report.id.toString());
@@ -100,7 +117,12 @@ public class SqlReportingStorage implements IReportingStorage{
     }
 
     @Override
-    public void updateReport(StoredReport report) throws Exception {
+    public void updateReport(StoredReport report) throws Exception { this.updateReport(report, false); }
+    @Override
+    public void updateReport(StoredReport report, boolean secondThread) throws Exception {
+        if(secondThread) {
+            throw new NotImplementedException(getName()+" does not support multithread for updateReport.");
+        }
         Logger.getLogger(getName()).warning("Updating report");
         PreparedStatement updateReport = conn.prepareStatement("UPDATE reports "
         +"SET source=?, target=?, solver=?, motive=?, status=?, postedAt=?, solvedAt=?, postComment=?, solveComment=? " 

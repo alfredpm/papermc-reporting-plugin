@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang.NotImplementedException;
+
 import fr.yakyoku.reporting.role.IRoleStorage;
 import fr.yakyoku.reporting.role.models.Role;
 
@@ -51,7 +53,12 @@ public class SqlRoleStorage implements IRoleStorage {
     // }
 
     @Override
-    public void initializePlayer(UUID id, String name, Role role) throws Exception {
+    public void initializePlayer(UUID id, String name, Role role) throws Exception { initializePlayer(id, name, role, false); }
+    @Override
+    public void initializePlayer(UUID id, String name, Role role, boolean secondThread) throws Exception {
+        if(secondThread) {
+            throw new NotImplementedException(getName()+" does not support multithread for initializePlayer.");
+        }
         Logger.getLogger(getName()).warning("Initializing player");
         PreparedStatement addUser = conn.prepareStatement("INSERT INTO users VALUES (?, ?, ?);");
         addUser.setString(1, id.toString());
@@ -61,7 +68,12 @@ public class SqlRoleStorage implements IRoleStorage {
     }
 
     @Override
-    public Role getRoleById(UUID id) throws Exception {
+    public Role getRoleById(UUID id) throws Exception { return getRoleById(id, false); }
+    @Override
+    public Role getRoleById(UUID id, boolean secondThread) throws Exception {
+        if(secondThread) {
+            throw new NotImplementedException(getName()+" does not support multithread for getRoleById.");
+        }
         Logger.getLogger(getName()).warning("Getting role by id");
         PreparedStatement getRole = conn.prepareStatement("SELECT role FROM users WHERE "
         +"id = ?"
@@ -78,7 +90,12 @@ public class SqlRoleStorage implements IRoleStorage {
     }
 
     @Override
-    public void setRoleById(UUID id, Role role) throws Exception {
+    public void setRoleById(UUID id, Role role) throws Exception { setRoleById(id, role, false); }
+    @Override
+    public void setRoleById(UUID id, Role role, boolean secondThread) throws Exception {
+        if(secondThread) {
+            throw new NotImplementedException(getName()+" does not support multithread for setRoleById.");
+        }
         Logger.getLogger(getName()).warning("Setting role by id");
         PreparedStatement updateReport = conn.prepareStatement("UPDATE users "
         +"SET role = ? " 
@@ -91,7 +108,12 @@ public class SqlRoleStorage implements IRoleStorage {
     }
 
     @Override
-    public UUID getIdByName(String name) throws Exception {
+    public UUID getIdByName(String name) throws Exception { return getIdByName(name, false); }
+    @Override
+    public UUID getIdByName(String name, boolean secondThread) throws Exception {
+        if(secondThread) {
+            throw new NotImplementedException(getName()+" does not support multithread for getIdByName.");
+        }
         Logger.getLogger(getName()).warning("Getting id by name");
         PreparedStatement getId = conn.prepareStatement("SELECT id FROM users WHERE name = ?;");
         getId.setString(1, name);
@@ -107,7 +129,12 @@ public class SqlRoleStorage implements IRoleStorage {
     }
 
     @Override
-    public String getNameById(UUID id) throws Exception {
+    public String getNameById(UUID id) throws Exception { return getNameById(id, false); }
+    @Override
+    public String getNameById(UUID id, boolean secondThread) throws Exception {
+        if(secondThread) {
+            throw new NotImplementedException(getName()+" does not support multithread for getNameById.");
+        }
         Logger.getLogger(getName()).warning("Getting name by id");
         PreparedStatement getName = conn.prepareStatement("SELECT name FROM users WHERE id = ?;");
         getName.setString(1, id.toString());

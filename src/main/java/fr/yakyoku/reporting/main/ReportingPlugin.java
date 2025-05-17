@@ -1,12 +1,15 @@
 package fr.yakyoku.reporting.main;
 
 import net.kyori.adventure.text.Component;
+import fr.naruse.dbapi.api.DatabaseAPI;
 import fr.yakyoku.reporting.main.input.IInputHandler;
 import fr.yakyoku.reporting.main.input.adapters.CommandInputHandler;
 import fr.yakyoku.reporting.report.ReportingService;
+import fr.yakyoku.reporting.report.adapters.dbapi.DbApiReportingStorage;
 import fr.yakyoku.reporting.report.adapters.memory.InMemoryReportingStorage;
 import fr.yakyoku.reporting.report.adapters.sql.SqlReportingStorage;
 import fr.yakyoku.reporting.role.RoleService;
+import fr.yakyoku.reporting.role.adapters.dbapi.DbApiRoleStorage;
 import fr.yakyoku.reporting.role.adapters.memory.InMemoryRoleStorage;
 import fr.yakyoku.reporting.role.adapters.sql.SqlRoleStorage;
 import fr.yakyoku.reporting.role.models.Role;
@@ -49,17 +52,23 @@ public class ReportingPlugin extends JavaPlugin implements Listener {
         consoleAttachment.setPermission("yakyoku.reporting.solve", true);
         consoleAttachment.setPermission("yakyoku.reporting.read", true);
         // Services setup
+
+        // STORAGE
         //      In memory
         // InMemoryReportingStorage reportStorage = new InMemoryReportingStorage();
         // InMemoryRoleStorage roleStorage = new InMemoryRoleStorage();
         //      In SQL 
         //          (sqlite)
-        Connection connection = InitSqlConnection("jdbc:sqlite:demodb");
+        // Connection connection = InitSqlConnection("jdbc:sqlite:demodb");
         //          (mysql)
         // Connection connection = InitSqlConnection("jdbc:mysql://localhost:3306/iyc", "root", "root");
-        SqlRoleStorage roleStorage = new SqlRoleStorage(connection);
-        SqlReportingStorage reportStorage = new SqlReportingStorage(connection);
-        //      Common
+        // SqlRoleStorage roleStorage = new SqlRoleStorage(connection);
+        // SqlReportingStorage reportStorage = new SqlReportingStorage(connection);
+        //          (dbapi)
+        DatabaseAPI.openNewConnection();
+        DbApiRoleStorage roleStorage = new DbApiRoleStorage();
+        DbApiReportingStorage reportStorage = new DbApiReportingStorage();
+        // COMMON
         reportingService = new ReportingService(reportStorage);
         roleService = new RoleService(roleStorage);
     }
@@ -123,7 +132,4 @@ public class ReportingPlugin extends JavaPlugin implements Listener {
                 break;
         }
     }
-
-
-
 }

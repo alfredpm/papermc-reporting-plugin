@@ -13,8 +13,13 @@ import fr.yakyoku.reporting.role.models.Role;
 
 public interface IRoleStorage {
     public void initializePlayer(UUID id, String name, Role role) throws Exception;
+    public void initializePlayer(UUID id, String name, Role role, boolean secondThread) throws Exception;
     public Role getRoleById(UUID id) throws Exception;
+    public Role getRoleById(UUID id, boolean secondThread) throws Exception;
     public void setRoleById(UUID id, Role role) throws Exception;
+    public void setRoleById(UUID id, Role role, boolean secondThread) throws Exception;
     public UUID getIdByName(String name) throws Exception;
+    public UUID getIdByName(String name, boolean secondThread) throws Exception;
     public String getNameById(UUID id) throws Exception;
+    public String getNameById(UUID id, boolean secondThread) throws Exception;
 }

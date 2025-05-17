@@ -12,9 +12,13 @@ import fr.yakyoku.reporting.report.models.StoredReport;
  *  - Probably easier to ensure cohesive database
  */
 
-public interface IReportingStorage {                
-    public StoredReport getReport(UUID id) throws Exception;
+public interface IReportingStorage {    
+    public StoredReport getReport(UUID id) throws Exception;            
+    public StoredReport getReport(UUID id, boolean secondThread) throws Exception;
     public List<StoredReport> getAllReports() throws Exception;
+    public List<StoredReport> getAllReports(boolean secondThread) throws Exception;
     public void addReport(StoredReport report) throws Exception;
+    public void addReport(StoredReport report, boolean secondThread) throws Exception;
     public void updateReport(StoredReport report) throws Exception;
+    public void updateReport(StoredReport report, boolean secondThread) throws Exception;
 }
